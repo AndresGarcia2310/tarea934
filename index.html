@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de color con validación</title>
+</head>
+<body>
+  <h1>Formulario de color</h1>
+  <p>Elija un producto y seleccione un color (distinto de rojo o amarillo):</p>
+
+  <form action="submit.php" method="post" onsubmit="return validarColor()">
+    <input type="text" name="color" id="color" disabled="disabled" placeholder="Color">
+
+    <select id="producto" onchange="habilitarColor()">
+      <option value="">Elija producto</option>
+      <option value="movil">Móvil</option>
+      <option value="tablet">Tablet</option>
+    </select>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script>
+    function habilitarColor() {
+      const producto = document.getElementById("producto").value;
+      const colorInput = document.getElementById("color");
+
+      if (producto === "movil") {
+        colorInput.removeAttribute("disabled");
+        colorInput.placeholder = "Ingrese el color del móvil";
+      } else {
+        colorInput.setAttribute("disabled", "");
+        colorInput.placeholder = "Color";
+      }
+    }
+
+    function validarColor() {
+      const colorInput = document.getElementById("color");
+      const color = colorInput.value;
+
+      if (color === "#ff0000" || color === "#ffff00") {
+        alert("El color no puede ser rojo o amarillo. Seleccione otro color.");
+        return false;
+      }
+
+      return true;
+    }
+  </script>
+</body>
+</html>
